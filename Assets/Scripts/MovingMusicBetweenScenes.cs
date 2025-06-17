@@ -25,7 +25,7 @@ public class MovingMusicBetweenScenes : MonoBehaviour
 
     void Start()
     {
-        playMainMenuMusic();
+        if(mainMenuClip != null) playMainMenuMusic();
     }
 
     public void playMainMenuMusic()

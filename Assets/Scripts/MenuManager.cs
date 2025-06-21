@@ -7,13 +7,20 @@ using TMPro;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] TMP_Text tmp;
-    [SerializeField] GameObject mainMenu;
-    [SerializeField] GameObject settings;
+    [SerializeField] CanvasGroup mainMenu;
+    [SerializeField] CanvasGroup settings;
 
-    int score = 0;
-    public int Score => score;
+    public int score = 0;
+    private void Start()
+    {
+        mainMenu.alpha = 1f;
+        mainMenu.interactable = true;
+        mainMenu.blocksRaycasts = true;
+        settings.alpha = 0f;
+        settings.interactable = false;
+        settings.blocksRaycasts = false;
+    }
 
-    
     void Update()
     {
         string _score = score.ToString();
@@ -22,14 +29,22 @@ public class MenuManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        mainMenu.SetActive(false);
-        settings.SetActive(true);
+        mainMenu.alpha = 0f;
+        mainMenu.interactable = false;
+        mainMenu.blocksRaycasts = false;
+        settings.alpha = 1f;
+        settings.interactable = true;
+        settings.blocksRaycasts = true;
     }
 
     public void CloseSettings()
     {
-        settings.SetActive(false);
-        mainMenu.SetActive(true);
+        settings.alpha = 0f;
+        settings.interactable = false;
+        mainMenu.blocksRaycasts = true;
+        mainMenu.alpha = 1f;
+        mainMenu.interactable = true;
+        settings.blocksRaycasts = false;
     }
 
     public void ExitGame()

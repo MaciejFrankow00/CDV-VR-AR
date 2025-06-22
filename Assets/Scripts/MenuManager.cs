@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] CanvasGroup mainMenu;
     [SerializeField] CanvasGroup settings;
 
-    public int score = 0;
+    [Header("Start Button")]
+    [SerializeField] string destinationScene;
+    
     private void Start()
     {
         mainMenu.alpha = 1f;
@@ -19,14 +22,16 @@ public class MenuManager : MonoBehaviour
         settings.alpha = 0f;
         settings.interactable = false;
         settings.blocksRaycasts = false;
+
+        int score = PlayerPrefs.GetInt("LastScore", 0);
+        tmp.text = score.ToString();
     }
 
-    void Update()
+    public void StartGame()
     {
-        string _score = score.ToString();
-        tmp.text = _score;
+        SceneManager.LoadScene(destinationScene);
     }
-
+    
     public void OpenSettings()
     {
         mainMenu.alpha = 0f;
@@ -49,6 +54,8 @@ public class MenuManager : MonoBehaviour
 
     public void ExitGame()
     {
+        PlayerPrefs.DeleteKey("LastScore");
+        PlayerPrefs.Save();
         Application.Quit();
         Debug.Log("Player has been exit the game");
     }

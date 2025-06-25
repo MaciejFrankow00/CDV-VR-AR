@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text tmp;
-    [SerializeField] CanvasGroup mainMenu;
-    [SerializeField] CanvasGroup settings;
+    [SerializeField] private TMP_Text tmp;
+    [SerializeField] private CanvasGroup mainMenu;
+    [SerializeField] private CanvasGroup settings;
 
     [Header("Start Button")]
     [SerializeField] string destinationScene;
@@ -46,10 +46,10 @@ public class MenuManager : MonoBehaviour
     {
         settings.alpha = 0f;
         settings.interactable = false;
-        mainMenu.blocksRaycasts = true;
+        settings.blocksRaycasts = false;
         mainMenu.alpha = 1f;
         mainMenu.interactable = true;
-        settings.blocksRaycasts = false;
+        mainMenu.blocksRaycasts = true;
     }
 
     public void ExitGame()

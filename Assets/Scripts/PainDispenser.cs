@@ -9,14 +9,17 @@ public class PainDispenser : MonoBehaviour
 
     [Header("Pain")]
     [SerializeField] private GameObject deliveryObject;
-    [SerializeField] private float deliveryTime = 1.5f;
-    [SerializeField] private float curveHeight = 2f;
+    [SerializeField] private float deliverySpeed = 3f;
     [SerializeField] private float deliveryInterval = 2f;
+    [SerializeField] [Tooltip("Delivery Object will be destroyed at this distance from target point")]
+    private float destroyDistance = 3f;
 
     [Header("Automated processes")]
-    [SerializeField] [Tooltip("Do not add elements manually!")] 
+    [SerializeField]
+    [Tooltip("Do not add elements manually!")]
     private List<Transform> startPoints = new List<Transform>();
-    [SerializeField] [Tooltip("Do not add elements manually!")] 
+    [SerializeField]
+    [Tooltip("Do not add elements manually!")]
     private List<Transform> targetPoints = new List<Transform>();
 
     private Coroutine attackRoutine;
@@ -80,25 +83,22 @@ public class PainDispenser : MonoBehaviour
     //Start executing delivery animation
     private IEnumerator PainInDelivery(Vector3 start, Vector3 target)
     {
-        float time = 0f;
         GameObject obj = Instantiate(deliveryObject, start, Quaternion.identity);
+        Vector3 direction = (target - start).normalized;
 
-        while (time < deliveryTime)
+        while (obj != null)
         {
-            float t = time / deliveryTime;
-            Vector3 pos = Vector3.Lerp(start, target, t);
-            
-            //Fancy curve trajectory
-            float arc = 4 * curveHeight * t * (1 - t);
-            pos.y += arc;
+            obj.transform.position += direction * deliverySpeed * Time.deltaTime;
+            float distance = Vector3.Distance(obj.transform.position, target);
 
-            obj.transform.position = pos;
-            time += Time.deltaTime;
+            if (distance > destroyDistance || obj.transform.position.y <=0.1)
+            {
+                Destroy(obj);
+                yield break;
+            }
+
             yield return null;
         }
-
-        obj.transform.position = target;
-        Destroy(obj);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -106,6 +106,7 @@ public class PainDispenser : MonoBehaviour
         if (other.CompareTag("Pain"))
         {
             playerHealth.TakeDamage(1);
+            Destroy(other.gameObject);
         }
     }
 }

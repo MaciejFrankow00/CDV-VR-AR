@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     public int CurrentHealth => currentHealth;
 
-    private void Start()
+    void Awake()
     {
         currentHealth = maxHealth;
         if (healthBar != null)

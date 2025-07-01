@@ -84,14 +84,17 @@ public class PainDispenser : MonoBehaviour
     private IEnumerator PainInDelivery(Vector3 start, Vector3 target)
     {
         GameObject obj = Instantiate(deliveryObject, start, Quaternion.identity);
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
         Vector3 direction = (target - start).normalized;
+
+        obj.transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);
+        rb.velocity = direction * deliverySpeed;
 
         while (obj != null)
         {
-            obj.transform.position += direction * deliverySpeed * Time.deltaTime;
             float distance = Vector3.Distance(obj.transform.position, target);
 
-            if (distance > destroyDistance || obj.transform.position.y <=0.1)
+            if (distance > destroyDistance)
             {
                 Destroy(obj);
                 yield break;

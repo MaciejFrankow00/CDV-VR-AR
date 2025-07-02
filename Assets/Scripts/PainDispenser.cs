@@ -7,6 +7,10 @@ public class PainDispenser : MonoBehaviour
     [Header("Player")]
     [SerializeField] private PlayerHealth playerHealth;
 
+    [Header("Droid")]
+    [SerializeField] private float duration = 1f;
+    [SerializeField] private Animator droidsAnimator;
+
     [Header("Pain")]
     [SerializeField] private GameObject deliveryObject;
     [SerializeField] private float deliverySpeed = 3f;
@@ -52,6 +56,9 @@ public class PainDispenser : MonoBehaviour
 
     private IEnumerator LoopDeliverPain()
     {
+        //Delay first delivery
+        yield return new WaitForSeconds(2f);
+
         while (playerHealth.CurrentHealth > 0)
         {
             DeliverPain();
@@ -68,7 +75,8 @@ public class PainDispenser : MonoBehaviour
             return;
         }
 
-        Vector3 startPoint = startPoints[Random.Range(0, startPoints.Count)].position;
+        Transform startTransform = startPoints[Random.Range(0, startPoints.Count)];
+        Transform droid = startTransform.parent;
         Vector3 targetPoint = targetPoints[Random.Range(0, targetPoints.Count)].position;
 
         if (targetPoint.y <= 0f)
@@ -77,7 +85,28 @@ public class PainDispenser : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PainInDelivery(startPoint, targetPoint));
+        droidsAnimator.speed = 0f;
+        StartCoroutine(DroidAnimation(startTransform, targetPoint, droid));
+    }
+
+    //Play befor executing delivery animation
+    private IEnumerator DroidAnimation(Transform startTransform, Vector3 target, Transform droid)
+    {
+        Vector3 start = startTransform.position;
+        Quaternion initialRotation = droid.rotation;
+        Vector3 directionToTarget = (target - start).normalized;
+        Quaternion finalRotation = Quaternion.LookRotation(directionToTarget);
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / duration;
+            droid.rotation = Quaternion.Slerp(initialRotation, finalRotation, normalizedTime);
+            yield return null;
+        }
+
+        droid.rotation = finalRotation;
+        Vector3 fixedStart = startTransform.position;
+        StartCoroutine(PainInDelivery(fixedStart, target));
     }
 
     //Start executing delivery animation
@@ -89,6 +118,7 @@ public class PainDispenser : MonoBehaviour
 
         obj.transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);
         rb.velocity = direction * deliverySpeed;
+        droidsAnimator.speed = 1f;
 
         while (obj != null)
         {

@@ -11,6 +11,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private CanvasGroup options;
     [SerializeField] private CanvasGroup settings;
 
+    [Header("Lightsaber and controllers")]
+    [SerializeField] private GameObject[] controllerVisuals;
+    [SerializeField] private GameObject lightsaber;
+
     void Start()
     {
         CloseSettings();
@@ -35,6 +39,8 @@ public class PauseMenu : MonoBehaviour
             
             //Do not remove crucial line below!
             Time.timeScale = 1;
+
+            GameMode(true);
         }
         else if (mainGroup.alpha == 0f)
         {
@@ -44,6 +50,8 @@ public class PauseMenu : MonoBehaviour
 
             //Do not remove crucial line below!
             Time.timeScale = 0;
+
+            GameMode(false);
         }
     }
 
@@ -75,5 +83,17 @@ public class PauseMenu : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void GameMode(bool showSaber)
+    {
+        foreach (GameObject controller in controllerVisuals)
+        {
+            if (controller != null)
+                controller.SetActive(!showSaber);
+        }
+
+        if (lightsaber != null)
+            lightsaber.SetActive(showSaber);
     }
 }

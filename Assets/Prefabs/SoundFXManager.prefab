@@ -47,15 +47,31 @@ MonoBehaviour:
   mixerGroup: {fileID: -2794055133158334855, guid: d58bb04874186f14f8f49239dc791fab, type: 2}
   soundFXObject: {fileID: 2714321289178290427, guid: 88a33eea04a275741b22747bb8d5874f, type: 3}
   soundList:
-  - name: SLASH
-    sounds: []
-  - name: HURT
-    sounds: []
+  - name: SABER_ACTIVATION
+    sounds:
+    - {fileID: 8300000, guid: 624f7a94fcd2a1f40a3d31e56f90a5bd, type: 3}
+  - name: SWOOSH
+    sounds:
+    - {fileID: 8300000, guid: fda2843214a78ef49a72c37ac744503e, type: 3}
+    - {fileID: 8300000, guid: c2c661367875ce242b5f60de105b3e37, type: 3}
+    - {fileID: 8300000, guid: 4f613d3e1e12b5d43a43dd83ecac53d6, type: 3}
+    - {fileID: 8300000, guid: 95a00f2803a00584b9c9eb6c9eacb468, type: 3}
+  - name: BLASTER
+    sounds:
+    - {fileID: 8300000, guid: 50ca926bba7f5c94db2a18de0d8bd63b, type: 3}
+    - {fileID: 8300000, guid: 86499c8fd4a77084a94a063080205ea6, type: 3}
+  - name: PAIN
+    sounds:
+    - {fileID: 8300000, guid: 2bafa6d699a433e4f981bdbfaff244bb, type: 3}
   - name: ALERT
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: 4babc93d09e62ae4f9019508ef566dc7, type: 3}
+  - name: SCORE_INCREASED
+    sounds:
+    - {fileID: 8300000, guid: b613e4354d7b1124db7b24a51a29ed26, type: 3}
   - name: BUTTON
-    sounds: []
-  - name: START
-    sounds: []
-  - name: EXIT
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: db5ee696c0e946c49887f55b62e8c526, type: 3}
+  - name: DEFEAT
+    sounds:
+    - {fileID: 8300000, guid: 70cf8107a91e1f544971c7ece2b90a01, type: 3}

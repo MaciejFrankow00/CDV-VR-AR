@@ -19,6 +19,7 @@ public class UnoReverse : MonoBehaviour
 
             rb.velocity = reversedDirection;
             scoreManager.AddPoint();
+            SoundFXManager.instance.PlaySound2D(SoundType.SCORE_INCREASED, transform, 0.5f);
         }
     }
 }

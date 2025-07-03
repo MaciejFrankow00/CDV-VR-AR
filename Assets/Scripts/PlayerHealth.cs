@@ -56,7 +56,8 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(1f);
+        SoundFXManager.instance.PlaySound2D(SoundType.DEFEAT, transform);
+        yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class MenuManager : MonoBehaviour
 {
@@ -27,13 +28,17 @@ public class MenuManager : MonoBehaviour
         tmp.text = score.ToString();
     }
 
-    public void StartGame()
+    public async void StartGame()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         SceneManager.LoadScene(destinationScene);
     }
     
-    public void OpenSettings()
+    public async void OpenSettings()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         mainMenu.alpha = 0f;
         mainMenu.interactable = false;
         mainMenu.blocksRaycasts = false;
@@ -42,8 +47,10 @@ public class MenuManager : MonoBehaviour
         settings.blocksRaycasts = true;
     }
 
-    public void CloseSettings()
+    public async void CloseSettings()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         settings.alpha = 0f;
         settings.interactable = false;
         settings.blocksRaycasts = false;
@@ -52,11 +59,18 @@ public class MenuManager : MonoBehaviour
         mainMenu.blocksRaycasts = true;
     }
 
-    public void ExitGame()
+    public async void ExitGame()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         PlayerPrefs.DeleteKey("LastScore");
         PlayerPrefs.Save();
         Application.Quit();
         Debug.Log("Player has been exit the game");
+    }
+
+    private void PlayButtonSound()
+    {
+        SoundFXManager.instance.PlaySound2D(SoundType.BUTTON, transform, 1f);
     }
 }

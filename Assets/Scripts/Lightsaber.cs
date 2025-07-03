@@ -8,11 +8,14 @@ public class Lightsaber : MonoBehaviour
     [SerializeField] private GameObject saber;
     [SerializeField] private float duration = 0.5f;
     
+    private bool startAnimation = true;
+    
     [Header("Trail renderer")]
     [SerializeField] private GameObject tipPoint;
     [SerializeField] private GameObject basePoint;
     [SerializeField] private GameObject meshParent;
     [SerializeField] private int trailFrameLength = 3;
+    [SerializeField] private AudioSource audioSource;
 
     private Mesh mesh;
     private Vector3[] vertices;
@@ -21,6 +24,8 @@ public class Lightsaber : MonoBehaviour
     private Vector3 previousTipPosition;
     private Vector3 previousBasePosition;
     private const int NUM_VERTICES = 12;
+    private AudioClip audioClip;
+    private bool playingSwoosh = true;
 
     void Start()
     {
@@ -51,6 +56,35 @@ public class Lightsaber : MonoBehaviour
         Vector3 localPrevTip = meshParent.transform.InverseTransformPoint(previousTipPosition);
         Vector3 localPrevBase = meshParent.transform.InverseTransformPoint(previousBasePosition);
 
+        //Movement detection based on local position of tipPoint and basePoint
+        float movementThreshold = 0.001f;
+        bool tipMoved = Vector3.Distance(localTip, localPrevTip) > movementThreshold;
+        bool baseMoved = Vector3.Distance(localBase,localPrevBase) > movementThreshold;
+        bool isTrailVisible = tipMoved || baseMoved;
+
+        //Playing swoosh sound logic
+        if (!startAnimation && isTrailVisible)
+        {
+            if (!playingSwoosh)
+            {
+                playingSwoosh = true;
+                
+                SoundFXManager.instance.ChooseRandom(SoundType.SWOOSH, audioSource);
+                audioClip = audioSource.clip;
+
+                if (audioClip != null)
+                {
+                    audioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            playingSwoosh = false;
+            audioClip = null;
+        }
+
+        //Rendering trail
         vertices[frameCount] = localBase;
         vertices[frameCount + 1] = localTip;
         vertices[frameCount + 2] = localPrevTip;
@@ -88,6 +122,7 @@ public class Lightsaber : MonoBehaviour
         saber.transform.localScale = scale;
 
         yield return new WaitForSeconds(0.5f);
+        SoundFXManager.instance.PlaySound3D(SoundType.SABER_ACTIVATION, transform, 0.6f);
 
         for (float t = 0f; t < duration; t += Time.deltaTime)
         {
@@ -99,5 +134,8 @@ public class Lightsaber : MonoBehaviour
 
         scale.z = finalScaleZ;
         saber.transform.localScale = scale;
+
+        yield return new WaitForSeconds(0.001f);
+        startAnimation = false;
     }
 }

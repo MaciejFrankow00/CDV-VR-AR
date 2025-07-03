@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -17,8 +18,20 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        CloseSettings();
-        DisplayPauseMenu();
+        settings.alpha = 0f;
+        settings.interactable = false;
+        settings.blocksRaycasts = false;
+        options.alpha = 1f;
+        options.interactable = true;
+        options.blocksRaycasts = true;
+        mainGroup.alpha = 0f;
+        mainGroup.interactable = false;
+        mainGroup.blocksRaycasts = false;
+
+        //Do not remove crucial line below!
+        Time.timeScale = 1;
+
+        GameMode(true);
     }
 
     public void PauseButtonPressed(InputAction.CallbackContext context)
@@ -27,12 +40,13 @@ public class PauseMenu : MonoBehaviour
             DisplayPauseMenu();
     }
     
-    public void DisplayPauseMenu()
+    public async void DisplayPauseMenu()
     {
         if (mainGroup.alpha == 1f)
         {
             CloseSettings();
-            
+            await Task.Delay(500);
+
             mainGroup.alpha = 0f;
             mainGroup.interactable = false;
             mainGroup.blocksRaycasts = false;
@@ -55,8 +69,10 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void OpenSettings()
+    public async void OpenSettings()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         options.alpha = 0f;
         options.interactable = false;
         options.blocksRaycasts = false;
@@ -65,8 +81,10 @@ public class PauseMenu : MonoBehaviour
         settings.blocksRaycasts = true;
     }
 
-    public void CloseSettings()
+    public async void CloseSettings()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         settings.alpha = 0f;
         settings.interactable = false;
         settings.blocksRaycasts = false;
@@ -75,13 +93,17 @@ public class PauseMenu : MonoBehaviour
         options.blocksRaycasts = true;
     }
 
-    public void RestartGame()
+    public async void RestartGame()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void BackToMainMenu()
+    public async void BackToMainMenu()
     {
+        PlayButtonSound();
+        await Task.Delay(500);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -95,5 +117,10 @@ public class PauseMenu : MonoBehaviour
 
         if (lightsaber != null)
             lightsaber.SetActive(showSaber);
+    }
+
+    private void PlayButtonSound()
+    {
+        SoundFXManager.instance.PlaySound2D(SoundType.BUTTON, transform, 1f);
     }
 }

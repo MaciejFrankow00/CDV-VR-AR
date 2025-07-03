@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
+  duration: 1
+  droidsAnimator: {fileID: 0}
   deliveryObject: {fileID: 6966320461224998369, guid: ee8ca3b4a84de1f4ea07d4e6f96385eb, type: 3}
   deliverySpeed: 3
   deliveryInterval: 1.5

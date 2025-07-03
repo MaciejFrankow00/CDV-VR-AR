@@ -96,6 +96,7 @@ public class PainDispenser : MonoBehaviour
         Quaternion initialRotation = droid.rotation;
         Vector3 directionToTarget = (target - start).normalized;
         Quaternion finalRotation = Quaternion.LookRotation(directionToTarget);
+        SoundFXManager.instance.PlaySound3D(SoundType.ALERT, startTransform);
 
         for (float t = 0f; t < duration; t += Time.deltaTime)
         {
@@ -116,6 +117,7 @@ public class PainDispenser : MonoBehaviour
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         Vector3 direction = (target - start).normalized;
 
+        SoundFXManager.instance.PlaySound3D(SoundType.BLASTER, obj.transform);
         obj.transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);
         rb.velocity = direction * deliverySpeed;
         droidsAnimator.speed = 1f;
@@ -139,6 +141,7 @@ public class PainDispenser : MonoBehaviour
         if (other.CompareTag("Pain"))
         {
             playerHealth.TakeDamage(1);
+            SoundFXManager.instance.PlaySound2D(SoundType.PAIN, transform, 0.6f);
             Destroy(other.gameObject);
         }
     }

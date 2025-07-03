@@ -10,10 +10,13 @@ public enum SoundType
     SWOOSH,
     BLASTER,
     PAIN,
-    ALERT,
+    ALERT_1,
     SCORE_INCREASED,
     BUTTON,
-    DEFEAT
+    DEFEAT,
+    DEFLECT_LASER,
+    ALERT_2,
+    ALERT_3
 }
 
 [ExecuteInEditMode]

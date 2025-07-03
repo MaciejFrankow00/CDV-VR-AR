@@ -31,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
+        SoundFXManager.instance.PlaySound2D(SoundType.PAIN, transform, 0.6f);
 
         if (healthBar != null)
             healthBar.value = currentHealth;

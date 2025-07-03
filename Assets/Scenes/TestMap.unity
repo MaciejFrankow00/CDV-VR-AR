@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lightsaber
       objectReference: {fileID: 0}
+    - target: {fileID: 3838706867557748955, guid: bb4b11037d69eb64c8d11a565a730166, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 337854820}
     - target: {fileID: 6877920864608989626, guid: bb4b11037d69eb64c8d11a565a730166, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -982,18 +986,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
-      propertyPath: soundList.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
-      propertyPath: soundList.Array.data[0].name
-      value: SABER_ACTIVATION
-      objectReference: {fileID: 0}
-    - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
-      propertyPath: soundList.Array.data[1].name
-      value: SWOOSH
-      objectReference: {fileID: 0}
-    - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
       propertyPath: soundList.Array.data[2].name
       value: BLASTER
       objectReference: {fileID: 0}
@@ -1003,7 +995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
       propertyPath: soundList.Array.data[4].name
-      value: ALERT
+      value: ALERT_1
       objectReference: {fileID: 0}
     - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
       propertyPath: soundList.Array.data[5].name
@@ -1016,6 +1008,10 @@ PrefabInstance:
     - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
       propertyPath: soundList.Array.data[7].name
       value: DEFEAT
+      objectReference: {fileID: 0}
+    - target: {fileID: 5768092933356473272, guid: a8e587250e9fc3242a5ec65bd705331f, type: 3}
+      propertyPath: soundList.Array.data[8].name
+      value: DEFLECT_LASER
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

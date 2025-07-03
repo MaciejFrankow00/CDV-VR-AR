@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Lightsaber : MonoBehaviour
 {
+    [Header("Player")]
+    [SerializeField] private PlayerHealth playerHealth;
+
+    private bool playerIsAlive = true;
+
     [Header("Saber animation")]
     [SerializeField] private GameObject saber;
     [SerializeField] private float duration = 0.5f;
@@ -44,6 +49,15 @@ public class Lightsaber : MonoBehaviour
         mesh.bounds = new Bounds(Vector3.zero, Vector3.one * 100f);
     }
 
+    void Update()
+    {
+        if(playerHealth.CurrentHealth <= 0 && playerIsAlive)
+        {
+            playerIsAlive = false;
+            StartCoroutine(TurnOffAnimation());
+        }
+    }
+
     void LateUpdate()
     {
         if (frameCount == (trailFrameLength * NUM_VERTICES))
@@ -57,7 +71,7 @@ public class Lightsaber : MonoBehaviour
         Vector3 localPrevBase = meshParent.transform.InverseTransformPoint(previousBasePosition);
 
         //Movement detection based on local position of tipPoint and basePoint
-        float movementThreshold = 0.001f;
+        float movementThreshold = 0.5f;
         bool tipMoved = Vector3.Distance(localTip, localPrevTip) > movementThreshold;
         bool baseMoved = Vector3.Distance(localBase,localPrevBase) > movementThreshold;
         bool isTrailVisible = tipMoved || baseMoved;
@@ -136,6 +150,31 @@ public class Lightsaber : MonoBehaviour
         saber.transform.localScale = scale;
 
         yield return new WaitForSeconds(0.001f);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         startAnimation = false;
+    }
+
+    public IEnumerator TurnOffAnimation()
+    {
+        Vector3 scale = saber.transform.localScale;
+        float initialScaleZ = scale.z;
+        
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+
+        yield return new WaitForSeconds(0.5f);
+        SoundFXManager.instance.PlaySound3D(SoundType.SABER_ACTIVATION, transform, 0.6f);
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / duration;
+            scale.z = Mathf.Lerp(initialScaleZ, 0f, normalizedTime);
+            saber.transform.localScale = scale;
+            yield return null;
+        }
+
+        scale.z = 0f;
+        saber.transform.localScale = scale;
     }
 }

@@ -75,7 +75,8 @@ public class PainDispenser : MonoBehaviour
             return;
         }
 
-        Transform startTransform = startPoints[Random.Range(0, startPoints.Count)];
+        int index = Random.Range(0, startPoints.Count);
+        Transform startTransform = startPoints[index];
         Transform droid = startTransform.parent;
         Vector3 targetPoint = targetPoints[Random.Range(0, targetPoints.Count)].position;
 
@@ -86,17 +87,20 @@ public class PainDispenser : MonoBehaviour
         }
 
         droidsAnimator.speed = 0f;
-        StartCoroutine(DroidAnimation(startTransform, targetPoint, droid));
+        StartCoroutine(DroidAnimation(startTransform, targetPoint, droid, index));
     }
 
     //Play befor executing delivery animation
-    private IEnumerator DroidAnimation(Transform startTransform, Vector3 target, Transform droid)
+    private IEnumerator DroidAnimation(Transform startTransform, Vector3 target, Transform droid, int droidIndex)
     {
         Vector3 start = startTransform.position;
         Quaternion initialRotation = droid.rotation;
         Vector3 directionToTarget = (target - start).normalized;
         Quaternion finalRotation = Quaternion.LookRotation(directionToTarget);
-        SoundFXManager.instance.PlaySound3D(SoundType.ALERT, startTransform);
+
+        droidIndex += 1;
+        SoundType soundToPlay = (SoundType)System.Enum.Parse(typeof(SoundType), "ALERT_" + droidIndex);
+        SoundFXManager.instance.PlaySound3D(soundToPlay, startTransform, 0.6f);
 
         for (float t = 0f; t < duration; t += Time.deltaTime)
         {
@@ -141,7 +145,6 @@ public class PainDispenser : MonoBehaviour
         if (other.CompareTag("Pain"))
         {
             playerHealth.TakeDamage(1);
-            SoundFXManager.instance.PlaySound2D(SoundType.PAIN, transform, 0.6f);
             Destroy(other.gameObject);
         }
     }

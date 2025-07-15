@@ -1,0 +1,56 @@
+{
+    "name": "CustomInputSystem",
+    "maps": [
+        {
+            "name": "PauseMenu",
+            "id": "2a7d3c9d-084a-46d0-9e60-d505f1c53979",
+            "actions": [
+                {
+                    "name": "PausePressed",
+                    "type": "Button",
+                    "id": "d85b33a2-50af-4366-8abb-38319c818039",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dfe84fb1-1504-4127-a5fc-de17aea7bf66",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PausePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92d526f6-81e9-460f-beed-4bdd6702f500",
+                    "path": "<QuestProTouchController>/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PausePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1add0b2e-7116-49e9-8a45-7080ced28c8d",
+                    "path": "<QuestTouchPlusController>/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PausePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

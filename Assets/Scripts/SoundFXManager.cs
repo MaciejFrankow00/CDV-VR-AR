@@ -6,12 +6,17 @@ using System;
 
 public enum SoundType
 {
-    SLASH,
-    HURT,
-    ALERT,
+    SABER_ACTIVATION,
+    SWOOSH,
+    BLASTER,
+    PAIN,
+    ALERT_1,
+    SCORE_INCREASED,
     BUTTON,
-    START,
-    EXIT
+    DEFEAT,
+    DEFLECT_LASER,
+    ALERT_2,
+    ALERT_3
 }
 
 [ExecuteInEditMode]
@@ -60,7 +65,7 @@ public class SoundFXManager : MonoBehaviour
         Debug.Log($"[SFX] Odtwarzam: {soundList[(int)audioClip].name} na {spawnTransform.name}");
     }
 
-    public void PlaySound3D(SoundType audioClip, Transform spawnTransform, float volume = 1f, float minDistance = 10f, float maxDistance = 100f)
+    public void PlaySound3D(SoundType audioClip, Transform spawnTransform, float volume = 1f, float minDistance = 0.5f, float maxDistance = 4f)
     {
         //choose random audio clip from list assigned to type
         AudioClip clip = instance.soundList[(int)audioClip].Sounds[UnityEngine.Random.Range(0, instance.soundList[(int)audioClip].Sounds.Length)];
@@ -108,6 +113,15 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource.gameObject, clipLength);
 
         Debug.Log($"[SFX] Odtwarzam: {soundList[(int)audioClip].name} na {spawnTransform.name}");
+    }
+
+    public void ChooseRandom(SoundType audioClip, AudioSource audioSource)
+    {
+        //choose random audio clip from list assigned to type
+        AudioClip clip = instance.soundList[(int)audioClip].Sounds[UnityEngine.Random.Range(0, instance.soundList[(int)audioClip].Sounds.Length)];
+
+        //assing the audioClip
+        audioSource.clip = clip;
     }
 
 #if UNITY_EDITOR

@@ -142,10 +142,6 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 337854820}
-    - target: {fileID: 3838706867557748955, guid: bb4b11037d69eb64c8d11a565a730166, type: 3}
-      propertyPath: trailFrameLength
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 6877920864608989626, guid: bb4b11037d69eb64c8d11a565a730166, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1535,6 +1531,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1882172824260077474, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882172824260077474, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882172824260077474, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455083361618596934, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5138246812799636080, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1542,6 +1554,18 @@ PrefabInstance:
     - target: {fileID: 7476028346800007787, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
       propertyPath: m_Name
       value: Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 7497077622169054834, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7497077622169054834, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7497077622169054834, guid: 49ac6a1541f0ef74d8ef59e292e8290a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
